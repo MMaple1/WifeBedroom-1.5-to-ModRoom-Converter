@@ -245,6 +245,10 @@ def convert_15_to_modroom(source_path: Path, dest_dir: Path, clean_dest: bool = 
     return stats
 
 def main():
+    if sys.version_info < (3, 8):
+        print("[!] Error: Python 3.8 or higher is required. Please update Python.")
+        sys.exit(1)
+
     parser = argparse.ArgumentParser(description="Convert Wife's Bedroom v1.5 mods to ModRoom architecture.")
     parser.add_argument("input", nargs="?", help="Path to v1.5 mod folder, custom/ directory, or .zip archive.")
     parser.add_argument("-d", "--dest", help="Destination directory (ModRoom game folder or export folder).")
