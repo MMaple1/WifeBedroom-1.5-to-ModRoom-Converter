@@ -94,7 +94,7 @@ A strip whose width is not a whole number of frames is left alone and reported.
 
 ## Tests and the shared module
 
-`python -m unittest discover -s tests` runs the tests. The conversion core is `core/wbconv.py`; **the other converter (`Modded_to_WB_1.5`) carries an identical copy**, change both together.
+`python -m unittest discover -s tests` runs the tests. The conversion core is `core/wbconv.py`; **Four identical copies exist** (both converters, the WB Mobile Patcher's `wbp/wbconv.py` and the Custom Studio's `backend/wbconv.py`): edit the one in `Modded_to_WB_1.5_Converter_v1.1/core/` and run the patcher's `python tools/sync_wbconv.py` (`--check` only reports).
 
 ## Limits
 
