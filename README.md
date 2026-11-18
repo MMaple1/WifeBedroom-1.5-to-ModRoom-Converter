@@ -36,4 +36,9 @@ python WB_1.5_to_Modded.py --dry-run input_folder
 ```
 
 See DETAILS.md for all options.
+
+## Partners' deepthroat too high in Deeproom?
+
+Partners converted for Deeproom with a version older than 2026-11-17 got a `[deepthroat]` block that draws the deepthroat sprite 66-70 px too high. Drag your Deeproom `custom_stuff/custom_wives` folder onto `Repair_Deepthroat.bat` (or run `python Repair_Deepthroat.py "<folder>"`, then again with `--apply`). It lists what it would fix first, only touches blocks the old converter wrote, and saves the originals in a zip next to the folder.
+
 For full technical details, frame counts, padding and engine rules, see `DETAILS.md`.

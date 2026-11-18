@@ -32,9 +32,9 @@ Frames are usually 160 px wide and portrait frames 128 px, but the games cut a s
 
 ### Deeproom
 Standard names and **one descriptor** per pack (`custom_data.futa` / `custom_data.spouse`). Nothing is renamed or resized. Missing keys are added without touching existing ones:
-- Pose blocks `[mating_press]`, `[reverse_cowgirl]`, `[deepthroat]` from the `[sprite]` origins.
+- Pose blocks `[mating_press]` and `[reverse_cowgirl]` from the `[sprite]` origins.
 - `[xray]` from v1.5's `xray_x/xray_y` (80/84 when absent, as v1.5 draws it; the body's origin is never copied into `[xray]`).
-- `deepthroat_origin_y` when present.
+- `[deepthroat] origin_y` only from v1.5's `deepthroat_origin_y`, minus 70 (Deeproom draws partner deepthroat 70 px higher). Without that key no `[deepthroat]` block is written and the game uses the `[sprite]` origin, as for native Deeproom packs.
 - `[condom]`, `[gender] is_male`, and `[sprite] xray_offset_y`.
 
 ### ModRoom

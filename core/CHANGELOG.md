@@ -4,6 +4,14 @@ All notable changes to the **WB 1.5 to Modded Mod Converter** tool are documente
 
 ---
 
+## [Version 1.2.1] - 2026-11-17
+
+### Fixes
+- **Deeproom partners' deepthroat drawn too high.** Converting a partner for Deeproom added `[deepthroat] origin_y="150"` (v1.5's default) when the pack had no deepthroat height, so Deeproom drew the sprite 66 px above the `[sprite]` origin its own packs use; a real v1.5 `deepthroat_origin_y` was copied unchanged, 70 px too high (Deeproom draws partner deepthroat 70 px higher than v1.5). Now no block is written without a v1.5 value, and a v1.5 value becomes Deeproom's value minus 70.
+- **`Repair_Deepthroat.bat` / `Repair_Deepthroat.py`** fix partners converted with an earlier version: blocks in exactly the old converter's shape are removed or corrected, everything else is left alone, dry run first, originals backed up to a zip.
+
+---
+
 ## [Version 1.2.0] - 2026-11-16
 
 ### Highlights
