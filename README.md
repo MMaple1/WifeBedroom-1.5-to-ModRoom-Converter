@@ -1,92 +1,44 @@
-# WB 1.5 to ModRoom Mod Converter v1.0
+# WB 1.5 to Modded Mod Converter
 
-A dedicated conversion tool that takes Wife's Bedroom v1.5 custom mods, Steam Workshop numeric folders, or unified `custom` directories and reorganizes them into the ModRoom mod architecture:
-- `custom_futas/` (Lovers)
-- `custom_wives/` (Partners / Spouses)
-- `custom_bedrooms/` (Room Backgrounds)
+This converter takes character and room mods made for Wife's Bedroom v1.5 and turns them into split-folder formats that newer modded engines (Deeproom 4.0.3 Kiwami and ModRoom v3.3) can load.
 
----
+## Start here
 
-## Quick Start (3 Steps)
+1. Make sure Python is installed (free from python.org; check the box to add Python to PATH).
+2. Drag your mod folder (or `.zip` file) onto `Convert_from_WB_1.5.bat`, or put it in the `input/` folder first (if both are empty, it asks for a path).
+3. A command window opens. Press Enter for each question to accept the defaults.
+4. When finished, press any key to close the window. Converted mods will be in the `output/` folder next to the `.bat` file.
 
-1. Find your Wife's Bedroom v1.5 mod folder (or a mod `.zip` file).
-2. Drag and drop that folder or `.zip` directly onto `Convert_1.5_to_ModRoom.bat`.
-3. Press Enter when prompted.
+Copy the contents of `output/Deeproom_Mods/custom_stuff/` into your Deeproom game directory, or `output/ModRoom_Mods/` into your ModRoom game directory.
 
-Your converted mods will be ready in the `output/ModRoom_Mods` folder!
+**Troubleshooting:** Open `output/conversion_report.md` in any text editor. It lists every character and notes whether it was converted, padded, approximated, or skipped. A line saying *skipped* means that character was excluded intentionally, with the reason beside it. If the window closes too fast, open Command Prompt in this folder and run `python WB_1.5_to_Modded.py`.
 
----
+## The questions it asks
 
-## What This Converter Does
+- **Target architecture:** Choose which game format to build: Deeproom (`1`), ModRoom (`2`), or **Both** (`3` or Enter). The default is **both**.
+- **Approximate mode (`[y/N]`):** Asks whether to allow lossy frame reduction (such as trimming X-ray strips). The default is **No** (`N`), preserving original frames safely.
+- **Skip duplicate packs (`[Y/n]`):** If the same character appears more than once, only the best copy is converted; the others are listed in the report. The default is **Yes**. Nothing in your mod folder is changed.
 
-### 1. Automatic Category Sorting
-In Wife's Bedroom v1.5, all custom content is placed together inside a single `custom` folder. This tool inspects each mod pack's data headers and sorts them into their proper ModRoom categories:
-- Mods with `.futa` data are routed to `custom_futas/` (Lovers).
-- Mods with `.spouse` or `.wife` data are routed to `custom_wives/` (Partners).
-- Mods with `.bedroom` data are routed to `custom_bedrooms/` (Room Backgrounds).
+## What you get
 
-### 2. Resolves Steam Workshop Numbers into Real Names
-Mods downloaded from the Steam Workshop often have confusing numeric folder names like `3821177370`.
-This tool opens the internal data files, reads the character's real title (for example, "Ankha"), and renames the folder cleanly so you can easily recognize your characters in menus and on disk.
+- **`output/Deeproom_Mods/custom_stuff/`**: Mods formatted for Deeproom 4.0.3.
+- **`output/ModRoom_Mods/`**: Mods formatted for ModRoom v3.3.
+- **`output/conversion_report.md`**: A detailed report tracking what was converted exactly, padded, approximated, or skipped.
+- **Dry run output**: Running with `--dry-run` processes files in temporary folders and writes only the conversion report, making no changes to your output game folders.
 
-### 3. Disambiguates Name Collisions
-If you have multiple mod packs with the same character name (for example, two different mods named "Ankha"), the tool safely appends the Workshop ID to prevent files from overwriting each other (e.g. `ankha_3821177370`).
+## Command line
 
-### 4. Strips Unnecessary Art Project Files
-Mod creators sometimes include large source art files (`.aseprite`, `.clip`, `.pdn`, `.kra`, `.psd`, `.zip`, and `.bak`).
-This tool automatically filters out raw source files, keeping only game-ready images (`.png`), audio (`.ogg`, `.wav`, `.mp3`), and configuration files (`.ini`, `.futa`, `.json`) so your game stays fast and lightweight.
-
-### 5. Generates Game-Ready Manifest Indexes
-Generates clean `_manifest.txt` indexing files inside every converted folder so the mods load instantly in both desktop ModRoom and mobile APK builds.
-
----
-
-## Prerequisites (What You Need on Your Computer)
-
-This tool is lightweight and relies entirely on standard built-in tools:
-- Python 3.8 or Higher: Download from [python.org](https://www.python.org/). During installation, make sure to check the box: "Add python.exe to PATH".
-- Zero External Packages: No `pip install` commands or extra libraries are required.
-- No Java Needed: Unlike the mobile APK patcher, this converter does not sign Android packages, so Java is not required.
-
----
-
-## Ways to Use
-
-### Method 1: Drag and Drop (Easiest)
-Drag any v1.5 mod folder, your `wifes_bedroom_win1_5` game folder, or a mod `.zip` archive directly onto `Convert_1.5_to_ModRoom.bat`.
-
-### Method 2: Use the "input" Folder
-Drop your mod folders or `.zip` files into the `input` folder and double-click `Convert_1.5_to_ModRoom.bat`.
-
-### Method 3: Merge Directly into Your ModRoom Game (Advanced)
-You can point the converter directly at your existing ModRoom installation so converted mods are placed directly into your game folder:
-```
-python WB_1.5_to_ModRoom.py "path/to/v15_mods" --dest "path/to/ModRoom"
+```bash
+python WB_1.5_to_Modded.py -t both input_folder
+python WB_1.5_to_Modded.py -t deeproom -d "C:/Games/Deeproom" -y pack.zip
+python WB_1.5_to_Modded.py -t modroom --approximate input_folder
+python WB_1.5_to_Modded.py --dry-run input_folder
 ```
 
----
+See DETAILS.md for all options.
 
-## Command Line Flags
+## Partners' deepthroat too high in Deeproom?
 
-| Flag | Purpose |
-|---|---|
-| `-d`, `--dest <path>` | Specify a custom destination folder (e.g. your ModRoom game directory). |
-| `--clean` | Cleans target category folders before copying to ensure a fresh, clean export. |
-| `-y`, `--yes` | Runs non-interactively without prompting (ideal for automated batch scripts). |
+Partners converted for Deeproom with a version older than 2026-11-17 got a `[deepthroat]` block that draws the deepthroat sprite 66-70 px too high. Drag your Deeproom `custom_stuff/custom_wives` folder onto `Repair_Deepthroat.bat` (or run `python Repair_Deepthroat.py "<folder>"`, then again with `--apply`). It lists what it would fix first, only touches blocks the old converter wrote, and saves the originals in a zip next to the folder.
 
----
-
-## Folder Layout
-
-```
-WB_1.5_to_ModRoom_Converter/
-├── Convert_1.5_to_ModRoom.bat   (One-click Windows launcher)
-├── WB_1.5_to_ModRoom.py         (Conversion engine)
-├── README.md                    (This guide)
-├── input/                       (Drop mod folders or .zip files here)
-└── output/
-    └── ModRoom_Mods/            (Converted game-ready mods)
-        ├── custom_futas/
-        ├── custom_wives/
-        └── custom_bedrooms/
-```
+For full technical details, frame counts, padding and engine rules, see `DETAILS.md`.
